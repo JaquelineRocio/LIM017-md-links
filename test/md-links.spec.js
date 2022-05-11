@@ -1,10 +1,14 @@
-const mdLinks = require('../');
-
+import {getPathFilesSync, isMdFile } from "../md-links.js";
 
 describe('mdLinks', () => {
 
-  it('should...', () => {
-    console.log('FIX ME!');
-  });
+  it('debe retornar un array de paths relativos de los archivos .md', () => {
 
+      const filesName = getPathFilesSync('folderExample');
+      isMdFile(filesName);
+      expect(isMdFile(filesName)).toEqual(    [
+        'folderExample\\folder1\\file1.md',
+        'folderExample\\folder3\\file2.md'
+      ]);
+  });
 });
