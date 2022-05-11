@@ -8,6 +8,9 @@ export const isAbsolutePath=(pathRoot)=>{
 export const convertToAbsolutePath = (pathRoot) =>{
     return resolve(pathRoot);
 }
+export const isThisPathValidate =(pathRoot)=>{
+    return fs.existsSync(pathRoot);
+}
 export const getPathFiles=(pathRoot)=>{
     const fileNames = fs.readdirSync(pathRoot);
     const arrFiles = fileNames.map(fileName => {
@@ -18,6 +21,8 @@ export const getPathFiles=(pathRoot)=>{
     return arrFiles.flat();
   }
   
-
+export const isMdFile=(arrPaths)=>{
+    return arrPaths.filter(direction => path.extname(direction)== ".md");
+  }
   
   console.log(isAbsolutePath(rootPath));
