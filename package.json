@@ -12,16 +12,39 @@
   },
   "type": "module",
   "scripts": {
-    "eslint": "eslint --ext .js src/ test/",
-    "test": "jest",
+    "eslint": "eslint --ext .js test/",
+    "test": "jest --coverage",
     "start": "node src/index.js"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.10",
-    "@babel/core": "^7.17.10",
-    "@babel/plugin-transform-modules-commonjs": "^7.17.9",
     "@babel/preset-env": "^7.17.10",
-    "babel-jest": "^27.5.1",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "jest": "^28.1.0"
+  },
+  "description": "MD Links es una librería que permite analizar una archivos .md",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaquelineRocio/LIM017-md-links.git"
+  },
+  "keywords": [
+    "http",
+    "md",
+    "links",
+    "files"
+  ],
+  "author": "Jaqueline Rocio Ramos Vargas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaquelineRocio/LIM017-md-links/issues"
+  },
+  "homepage": "https://github.com/JaquelineRocio/LIM017-md-links#readme",
+  "dependencies": {
+    "markdown-it": "^13.0.1"
   }
 }
