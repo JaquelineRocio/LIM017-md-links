@@ -2,19 +2,23 @@
 /* eslint linebreak-style: ["error", "windows"] */
 import fs from 'fs';
 import path, { join, resolve } from 'path';
+import MarkdownIt from 'markdown-it';
+import { JSDOM } from 'jsdom';
+import chalk from 'chalk';
 
 export const isvalidPath = (pathRoot) => {
   const pathAbsolute = (path.isAbsolute(pathRoot)) ? pathRoot : resolve(pathRoot);
   const valid = fs.existsSync(pathAbsolute);
-  return [valid, pathAbsolute];
+  return { valid, pathAbsolute };
 };
 export const isMdFile = (arrPaths) => arrPaths.filter((direction) => path.extname(direction) === '.md');
+
 export const getPathOfMdFiles = (pathRoot) => {
   const firstStatFile = fs.statSync(pathRoot);
-
   if (firstStatFile.isFile()) return [pathRoot];
   const fileNames = fs.readdirSync(pathRoot);
-  if (fileNames !== []) {
+
+  if (fileNames.length !== 0) {
     const arrFiles = fileNames.map((fileName) => {
       const filePath = join(pathRoot, fileName);
       const statFile = fs.statSync(filePath);
@@ -22,11 +26,35 @@ export const getPathOfMdFiles = (pathRoot) => {
     });
     return isMdFile(arrFiles.flat());
   }
-
-  console.log('Error: El directorio esta vacio');
+  return 'empty';
 };
 
 export const readFileMd = (pathRoot) => fs.readFileSync(pathRoot, 'utf8', (err, data) => {
   if (err) throw err;
-  console.log(data);
+  return (data);
 });
+export const getArraysOfaTags = (arrayResults) => arrayResults.map((result) => result.match(/<a\shref="http*.*>.*?<\/a>/g)).filter((tag) => tag !== null);
+export const getLinks = (dataFile) => {
+  const md = new MarkdownIt();
+  const dataHTML = md.render(dataFile);
+  const arrayTags = dataHTML.match(/<a\shref="http*.*>.*?<\/a>/g);
+  if (arrayTags !== null) {
+    const arrayObj = arrayTags.map((tag, index) => {
+      const dom = new JSDOM(`<!DOCTYPE html>${tag}`);
+      const link = dom.window.document.querySelector('a').href;
+      const textLink = dom.window.document.querySelector('a').textContent;
+      return { href: link, text: textLink };
+    });
+    const links = {};
+    arrayObj.forEach((e, i) => {
+      links[`Link ${i + 1}`] = e;
+    });
+    return links;
+  }
+  // return getArraysOfaTags(dataFile).map((arrayPerFile) => arrayPerFile.map((aTag) => {
+  //   const dom = new JSDOM(`<!DOCTYPE html>${aTag}`);
+  //   const link = dom.window.document.querySelector('a').href;
+  //   const textLink = dom.window.document.querySelector('a').textContent;
+  //   return [link, textLink];
+  // }));
+};

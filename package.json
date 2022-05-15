@@ -23,8 +23,11 @@
     "eslint-plugin-import": "^2.26.0",
     "jest": "^28.1.0"
   },
-  "description": "MD Links es una librería que permite analizar una archivos .md",
+  "description": "MD Links es una librería que permite analizar archivos .md",
   "main": "index.js",
+  "bin": {
+    "md-links": "cli.js"
+  },
   "directories": {
     "test": "test"
   },
@@ -45,6 +48,10 @@
   },
   "homepage": "https://github.com/JaquelineRocio/LIM017-md-links#readme",
   "dependencies": {
-    "markdown-it": "^13.0.1"
+    "boxen": "^6.2.1",
+    "chalk": "^5.0.1",
+    "jsdom": "^19.0.0",
+    "markdown-it": "^13.0.1",
+    "nodemon": "^2.0.16"
   }
 }
