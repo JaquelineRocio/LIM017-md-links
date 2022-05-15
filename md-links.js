@@ -4,7 +4,6 @@ import fs from 'fs';
 import path, { join, resolve } from 'path';
 import MarkdownIt from 'markdown-it';
 import { JSDOM } from 'jsdom';
-import chalk from 'chalk';
 
 export const isvalidPath = (pathRoot) => {
   const pathAbsolute = (path.isAbsolute(pathRoot)) ? pathRoot : resolve(pathRoot);
@@ -39,11 +38,12 @@ export const getLinks = (dataFile) => {
   const dataHTML = md.render(dataFile);
   const arrayTags = dataHTML.match(/<a\shref="http*.*>.*?<\/a>/g);
   if (arrayTags !== null) {
-    const arrayObj = arrayTags.map((tag, index) => {
+    const arrayObj = arrayTags.map((tag) => {
       const dom = new JSDOM(`<!DOCTYPE html>${tag}`);
       const link = dom.window.document.querySelector('a').href;
       const textLink = dom.window.document.querySelector('a').textContent;
-      return { href: link, text: textLink };
+
+      return { href: link, text: textLink.slice(0, 50) };
     });
     const links = {};
     arrayObj.forEach((e, i) => {
@@ -51,10 +51,5 @@ export const getLinks = (dataFile) => {
     });
     return links;
   }
-  // return getArraysOfaTags(dataFile).map((arrayPerFile) => arrayPerFile.map((aTag) => {
-  //   const dom = new JSDOM(`<!DOCTYPE html>${aTag}`);
-  //   const link = dom.window.document.querySelector('a').href;
-  //   const textLink = dom.window.document.querySelector('a').textContent;
-  //   return [link, textLink];
-  // }));
+  return 'No se encontraron links';
 };
