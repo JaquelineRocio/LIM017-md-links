@@ -25,8 +25,8 @@ const mdLinks = (path) => new Promise((resolve, reject) => {
   reject('Ruta no valida');
 });
 export default mdLinks;
-const links = mdLinks('emptyFile.md');
-links
+const linksFeatures = mdLinks('emptyFile.md');
+linksFeatures
   .then((e) => {
     e.forEach((element) => {
       console.log(boxen(chalk.hex('#a2d2ff')(element.file), {
