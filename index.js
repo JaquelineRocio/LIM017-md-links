@@ -1,16 +1,16 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable no-console */
 /* eslint-disable import/extensions */
-/* eslint-disable consistent-return */
 /* eslint linebreak-style: ["error", "windows"] */
-import chalk from 'chalk';
-import boxen from 'boxen';
 
 import {
-  isvalidPath, getPathOfMdFiles, readFileMd, getLinks,
+  isvalidPath, getPathOfMdFiles, readFileMd, getLinks, getDataHttpRequest,
 } from './md-links.js';
 
-const mdLinks = (path) => new Promise((resolve, reject) => {
+const mdLinks = (path, options) => new Promise((resolve, reject) => {
   if (isvalidPath(path).valid) {
     const arrayMdFiles = getPathOfMdFiles(isvalidPath(path).pathAbsolute);
     if (arrayMdFiles === 'empty') { reject('Error: Directorio Vacío'); }
@@ -20,23 +20,27 @@ const mdLinks = (path) => new Promise((resolve, reject) => {
       return (itemsLink !== 'No se encontraron links') ? { file: pathMdFile, links: { ...itemsLink } } : reject('Error: Archivo vacío');
     });
     const resultados = dataArray.filter((e) => e !== '');
-    resolve(resultados);
+    if (options === '--validate') {
+      resolve(getDataHttpRequest(resultados).then((arrayHttpRequest) => {
+        let lengthObj = 0;
+        resultados.forEach((obj) => {
+          for (const key in obj.links) {
+            if (Object.prototype.hasOwnProperty.call(obj.links, key)) {
+              const statusLink = 'status';
+              const okLink = 'ok';
+              obj.links[key][statusLink] = arrayHttpRequest[lengthObj][0];
+              obj.links[key][okLink] = arrayHttpRequest[lengthObj][1];
+              lengthObj += 1;
+            }
+          }
+        });
+        console.log(resultados[0].links);
+        return resultados;
+      }));
+    } else {
+      resolve(resultados);
+    }
   }
   reject('Ruta no valida');
 });
 export default mdLinks;
-const linksFeatures = mdLinks('emptyFile.md');
-linksFeatures
-  .then((e) => {
-    e.forEach((element) => {
-      console.log(boxen(chalk.hex('#a2d2ff')(element.file), {
-        title: 'File path', titleAlignment: 'center', borderColor: 'cyan',
-      }));
-      console.group();
-      console.table(element.links);
-      console.groupEnd();
-    });
-  })
-  .catch(
-    (err) => console.log(err),
-  );

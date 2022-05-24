@@ -1,9 +1,14 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-undef */
+/* eslint-disable no-console */
 /* eslint-disable consistent-return */
 /* eslint linebreak-style: ["error", "windows"] */
 import fs from 'fs';
 import path, { join, resolve } from 'path';
 import MarkdownIt from 'markdown-it';
 import { JSDOM } from 'jsdom';
+import fetch from 'node-fetch';
 
 export const isvalidPath = (pathRoot) => {
   const pathAbsolute = (path.isAbsolute(pathRoot)) ? pathRoot : resolve(pathRoot);
@@ -32,6 +37,7 @@ export const readFileMd = (pathRoot) => fs.readFileSync(pathRoot, 'utf8', (err, 
   if (err) throw err;
   return (data);
 });
+
 export const getArraysOfaTags = (arrayResults) => arrayResults.map((result) => result.match(/<a\shref="http*.*>.*?<\/a>/g)).filter((tag) => tag !== null);
 export const getLinks = (dataFile) => {
   const md = new MarkdownIt();
@@ -52,4 +58,20 @@ export const getLinks = (dataFile) => {
     return links;
   }
   return 'No se encontraron links';
+};
+export const getHttpRequest = (url) => fetch(url)
+  .then((res) => [res.status, (res.ok) ? 'ok' : 'fail'])
+  .catch((e) => console.error(e));
+
+export const getDataHttpRequest = (arrayObj) => {
+  const hrefs = [];
+  arrayObj.forEach((obj) => {
+    for (const key in obj.links) {
+      if (Object.prototype.hasOwnProperty.call(obj.links, key)) {
+        hrefs.push(obj.links[key].href);
+      }
+    }
+  });
+  return Promise.all(hrefs.map((href) => getHttpRequest(href).then((e) => e)))
+    .then((values) => values);
 };
