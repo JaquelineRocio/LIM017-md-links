@@ -38,7 +38,6 @@ export const readFileMd = (pathRoot) => fs.readFileSync(pathRoot, 'utf8', (err, 
   return (data);
 });
 
-export const getArraysOfaTags = (arrayResults) => arrayResults.map((result) => result.match(/<a\shref="http*.*>.*?<\/a>/g)).filter((tag) => tag !== null);
 export const getLinks = (dataFile) => {
   const md = new MarkdownIt();
   const dataHTML = md.render(dataFile);
@@ -51,11 +50,11 @@ export const getLinks = (dataFile) => {
 
       return { href: link, text: textLink.slice(0, 50) };
     });
-    const links = {};
+    const dataBylinks = {};
     arrayObj.forEach((e, i) => {
-      links[`Link ${i + 1}`] = e;
+      dataBylinks[`Link ${i + 1}`] = e;
     });
-    return links;
+    return dataBylinks;
   }
   return 'No se encontraron links';
 };

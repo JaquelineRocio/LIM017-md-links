@@ -2,7 +2,7 @@
 /* eslint linebreak-style: ["error", "windows"] */
 import { resolve } from 'path';
 import {
-  getLinks, getPathOfMdFiles, isMdFile, isvalidPath,
+  getLinks, getPathOfMdFiles, isMdFile, isvalidPath, getDataHttpRequest,
 } from '../md-links.js';
 
 describe('mdLinks', () => {
@@ -33,5 +33,19 @@ describe('mdLinks', () => {
   it('Muestra un mensaje de error', () => {
     const fileEmpty = ' ';
     expect(getLinks(fileEmpty)).toEqual('No se encontraron links');
+  });
+  it('Retorna un array con el status y ok del link', () => {
+    const arrObj = [
+      {
+        file: 'D:\\LABORATORIA\\PROYECTOS\\LIM017-md-links\\folderExample\\folder1\\file1.md',
+        links: {
+          'Link 1': { href: 'https://es.wikipedia.org/wiki/Markdown', text: 'Markdown' },
+          'Link 2': { href: 'https://nodejs.org/es/', text: 'Node.js' },
+        },
+      }];
+    const results = [[200, 'ok'], [200, 'ok']];
+    return getDataHttpRequest(arrObj).then((arrayStatus) => {
+      expect(arrayStatus).toStrictEqual(results);
+    });
   });
 });

@@ -10,7 +10,7 @@ import {
   isvalidPath, getPathOfMdFiles, readFileMd, getLinks, getDataHttpRequest,
 } from './md-links.js';
 
-const mdLinks = (path, options) => new Promise((resolve, reject) => {
+const mdLinks = (path, options = { validate: true }) => new Promise((resolve, reject) => {
   if (isvalidPath(path).valid) {
     const arrayMdFiles = getPathOfMdFiles(isvalidPath(path).pathAbsolute);
     if (arrayMdFiles === 'empty') { reject('Error: Directorio Vacío'); }
@@ -20,7 +20,7 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
       return (itemsLink !== 'No se encontraron links') ? { file: pathMdFile, links: { ...itemsLink } } : reject('Error: Archivo vacío');
     });
     const resultados = dataArray.filter((e) => e !== '');
-    if (options === '--validate') {
+    if (options.validate) {
       resolve(getDataHttpRequest(resultados).then((arrayHttpRequest) => {
         let lengthObj = 0;
         resultados.forEach((obj) => {
@@ -34,13 +34,12 @@ const mdLinks = (path, options) => new Promise((resolve, reject) => {
             }
           }
         });
-        console.log(resultados[0].links);
         return resultados;
       }));
     } else {
       resolve(resultados);
     }
   }
-  reject('Ruta no valida');
+  reject('Invalid path');
 });
 export default mdLinks;
