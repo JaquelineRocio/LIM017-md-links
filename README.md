@@ -9,36 +9,33 @@ See Deployment for the library developed with Node.js.
 Installation 🔧
 You can install it by npm:
 
-$ npm i md-links-fioaf
+$ npm imdLinks-JaquelineRV
 Guide to use ⚙️
 You can run the library through the terminal:
 
 mdlinks-checker <path-to-file> [options]
 The paths entered can be relative or absolute and the options you can use are: --help, --stats, --validate, or use both together --stats --validate.
 
-Case 1: md-links <path-to-file>
+Case 1:mdLinks <path-to-file>
 
 ![Caso1](img/Caso1.PNG)
 
-Case 2: md-links <path-to-file> --validate
+Case 2:mdLinks <path-to-file> --validate
 
 ![Caso2](img/Caso2.PNG)
 
-Case 3: md-links <path-to-file> --stats
+Case 3:mdLinks <path-to-file> --stats
 
 ![Caso3](img/Caso3.PNG)
 
-Case 4: md-links <path-to-file> --stats --validate or md-links <path-to-file> --validate --stats
+Case 4:mdLinks <path-to-file> --stats --validate ormdLinks <path-to-file> --validate --stats
 
 ![Caso4](img/Caso4.PNG)
 
-Case 5: md-links --help
+Case 5:mdLinks --help
 
 ![Caso5](img/Caso5.PNG)
 
-Case 6: When information is omitted or incorrect
-
-![Caso6](img/Caso6.PNG)
 
 Flowcharts
 ## Índice
