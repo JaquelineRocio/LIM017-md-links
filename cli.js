@@ -17,6 +17,7 @@ const help = {
 
 // const path = argv[2];
 const args = argv;
+console.log(argv);
 const stats = (path, broken) => mdLinks(path)
   .then((objArray) => {
     objArray.map((obj) => {

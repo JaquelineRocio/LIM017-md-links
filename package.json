@@ -18,8 +18,7 @@
     "eslint": "^8.15.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "jest": "^28.1.0",
-    "node-fetch": "^2.6.7"
+    "jest": "^28.1.0"
   },
   "description": "MD Links es una librería que permite analizar archivos .md",
   "main": "index.js",
@@ -51,6 +50,7 @@
     "chalk": "^5.0.1",
     "jsdom": "^19.0.0",
     "markdown-it": "^13.0.1",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "node-fetch": "^2.6.7"
   }
 }

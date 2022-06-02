@@ -5,6 +5,7 @@ import {
   getLinks, getPathOfMdFiles, isMdFile, isvalidPath, getDataHttpRequest,
 } from '../md-links.js';
 
+jest.mock('node-fetch');
 describe('mdLinks', () => {
   it('La ruta no es valida', () => {
     const fakePath = 'fakePath';

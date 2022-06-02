@@ -9,8 +9,9 @@ See Deployment for the library developed with Node.js.
 Installation 🔧
 You can install it by npm:
 
-$ npm imdLinks-JaquelineRV
-Guide to use ⚙️
+$ npm i mdLinks-JaquelineRV
+
+# Guide to use
 You can run the library through the terminal:
 
 mdlinks-checker <path-to-file> [options]
