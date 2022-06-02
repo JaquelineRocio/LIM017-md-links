@@ -8,16 +8,14 @@ import boxen from 'boxen';
 import { argv } from 'node:process';
 import mdLinks from './index.js';
 
-const textForInvalid = 'Command not found. To see list of available commands, use \'mdLinks --help\'.';
+const textForInvalid = 'Command not found. To see list of available commands, use \'md-links --help\'.';
 const help = {
   '--validate': { Description: 'Show you additional information: status, ok/fail' },
   '--stats': { Description: 'Show the total number of links and unique links' },
   '--validate --stats or --stats --validate': { Description: 'Show the total number of links (total), unique links (unique) and broken links (broken).' },
 };
 
-// const path = argv[2];
 const args = argv;
-console.log(argv);
 const stats = (path, broken) => mdLinks(path)
   .then((objArray) => {
     objArray.map((obj) => {
@@ -70,8 +68,8 @@ const validateFalse = () => {
 };
 switch (true) {
   case (args.length === 2 || args[3] === '--help' || args[2] === '--help'):
-    console.log(boxen(chalk.hex('#a2d2ff')('You can use mdLinks with the following options:'), {
-      title: 'mdLinks', titleAlignment: 'center', borderColor: 'cyan',
+    console.log(boxen(chalk.hex('#a2d2ff')('You can use md-links with the following options:'), {
+      title: 'md-links', titleAlignment: 'center', borderColor: 'cyan',
     }));
     console.table(help);
     break;

@@ -6,7 +6,7 @@ import {
 } from '../md-links.js';
 
 jest.mock('node-fetch');
-describe('mdLinks', () => {
+describe('md-links', () => {
   it('La ruta no es valida', () => {
     const fakePath = 'fakePath';
     expect(isvalidPath(fakePath)).toEqual({

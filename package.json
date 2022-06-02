@@ -1,5 +1,5 @@
 {
-  "name": "md-links",
+  "name": "md-links-jaqueline",
   "jest": {
     "verbose": true
   },
@@ -23,7 +23,7 @@
   "description": "MD Links es una librería que permite analizar archivos .md",
   "main": "index.js",
   "bin": {
-    "mdLinks": "./cli.js"
+    "md-links": "./cli.js"
   },
   "directories": {
     "test": "test"
