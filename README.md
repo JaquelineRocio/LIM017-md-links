@@ -33,9 +33,10 @@ Case 4:mdLinks <path-to-file> --stats --validate or mdLinks <path-to-file> --val
 
 ![Caso4](img/Caso4.PNG)
 
-Case 5:md-links --help
+Case 5:mdLinks --help
 
 ![Caso5](img/Caso5.PNG)
 
 
 Flowcharts
+![Diagrama1](Diagrama1.png)
